@@ -1,30 +1,144 @@
-# zainab clothing house
+# ✨ Style Sphere — Luxury Fashion E-Commerce Platform
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com)
+[![Built with Vite](https://img.shields.io/badge/Built%20with-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/khuzaimaishthiaq-gmailcoms-projects/v0-zainab-clothing-house)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/fWPxK9ExS01)
+> A world-class luxury e-commerce experience for **Zainab Clothing House** — featuring AR Virtual Try-On, AI Visual Search, and an elegant editorial-grade UI.
 
-## Overview
+---
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+## 🚀 Live Deployment
 
-## Deployment
+> 🔗 **[Coming Soon on Vercel](#)** — deploying shortly!
 
-Your project is live at:
+---
 
-**[https://vercel.com/khuzaimaishthiaq-gmailcoms-projects/v0-zainab-clothing-house](https://vercel.com/khuzaimaishthiaq-gmailcoms-projects/v0-zainab-clothing-house)**
+## 📸 Features
 
-## Build your app
+| Feature | Description |
+|---|---|
+| 🏠 **Home Page** | Cinematic hero banner with editorial product showcases |
+| 🛍️ **Shop Page** | Filterable, animated product grid with luxury card design |
+| 🪄 **AR Try-On** | Virtual fitting room using device camera |
+| 🔍 **Visual Search** | AI-powered image-based product discovery |
+| ❤️ **Wishlist** | Save and manage favorite items |
+| 🛒 **Cart** | Full cart management with quantity controls |
+| 📦 **Product Detail** | Rich product pages with gallery and size selection |
 
-Continue building your app on:
+---
 
-**[https://v0.dev/chat/projects/fWPxK9ExS01](https://v0.dev/chat/projects/fWPxK9ExS01)**
+## 🛠️ Tech Stack
 
-## How It Works
+- **Framework:** [Vite](https://vitejs.dev) + [React 18](https://react.dev)
+- **Language:** TypeScript
+- **Styling:** TailwindCSS + Custom CSS Animations
+- **Backend/DB:** [Supabase](https://supabase.com)
+- **Icons:** Lucide React
+- **Deployment:** [Vercel](https://vercel.com)
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+---
+
+## 📁 Project Structure
+
+```
+StyleSphere/
+├── public/
+│   └── images/          # Hero, product & lifestyle images
+├── src/
+│   ├── components/
+│   │   ├── Navbar.tsx   # Top navigation bar
+│   │   ├── Sidebar.tsx  # Mobile side drawer
+│   │   └── ui/          # Reusable UI components
+│   ├── pages/
+│   │   ├── Home.tsx
+│   │   ├── Shop.tsx
+│   │   ├── ProductDetail.tsx
+│   │   ├── Cart.tsx
+│   │   ├── Wishlist.tsx
+│   │   ├── TryOn.tsx
+│   │   └── VisualSearch.tsx
+│   ├── lib/
+│   │   └── supabase.ts  # Supabase client
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── index.html
+├── vite.config.ts
+├── tailwind.config.js
+└── tsconfig.json
+```
+
+---
+
+## ⚙️ Getting Started Locally
+
+### Prerequisites
+- Node.js `v18+`
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/malikmajid161/zainab-clothing-house.git
+
+# Navigate into the project
+cd zainab-clothing-house
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+The app will be running at **http://localhost:5173**
+
+---
+
+## 🌍 Deploying to Vercel
+
+1. Push your code to this GitHub repository
+2. Go to [vercel.com](https://vercel.com) → **New Project**
+3. Import `malikmajid161/zainab-clothing-house`
+4. Set **Framework Preset** to `Vite`
+5. Click **Deploy** 🚀
+
+> **Build Settings:**
+> - Build Command: `npm run build`
+> - Output Directory: `dist`
+> - Install Command: `npm install`
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+Add these same variables in your **Vercel project settings → Environment Variables**.
+
+---
+
+## 👤 Author
+
+**Majid** — [github.com/malikmajid161](https://github.com/malikmajid161)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ for Zainab Clothing House · Powered by Vite + React + Vercel</sub>
+</div>
