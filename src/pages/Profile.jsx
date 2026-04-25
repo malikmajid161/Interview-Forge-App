@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { supabase } from '../lib/supabase'
+import { Camera } from 'lucide-react'
 
 const Profile = ({ navigate }) => {
   const [formData, setFormData] = useState({
@@ -8,10 +9,26 @@ const Profile = ({ navigate }) => {
     industry: 'Technology',
     interviewDate: ''
   })
+  const [avatar, setAvatar] = useState(null)
   const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) { // 2MB limit
+        alert("Please choose an image smaller than 2MB")
+        return
+      }
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setAvatar(reader.result)
+      }
+      reader.readAsDataURL(file)
+    }
   }
 
   const handleComplete = async (e) => {
@@ -26,7 +43,8 @@ const Profile = ({ navigate }) => {
           target_role: formData.targetRole,
           experience_level: formData.experienceLevel,
           industry: formData.industry,
-          interview_date: formData.interviewDate
+          interview_date: formData.interviewDate,
+          avatar_url: avatar // Saving Base64 image
         })
         if (error) throw error
       }
@@ -75,14 +93,37 @@ const Profile = ({ navigate }) => {
       </div>
 
       {/* Right Panel */}
-      <div className="right-panel" style={{ flex: '1', background: 'white', padding: '64px', display: 'flex', alignItems: 'center' }}>
-        <div style={{ maxWidth: '480px', margin: '0 auto', width: '100%' }}>
+      <div className="right-panel" style={{ flex: '1', background: 'white', padding: '64px', display: 'flex', alignItems: 'center', overflowY: 'auto' }}>
+        <div style={{ maxWidth: '480px', margin: '0 auto', width: '100%', padding: '40px 0' }}>
           <h2 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '8px' }}>Set Up Your Profile</h2>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '40px' }}>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '32px' }}>
             You can update this anytime in settings.
           </p>
 
           <form onSubmit={handleComplete}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '32px' }}>
+              <label style={{ cursor: 'pointer', position: 'relative' }}>
+                <div style={{ 
+                  width: '100px', 
+                  height: '100px', 
+                  borderRadius: '50%', 
+                  background: avatar ? `url(${avatar}) center/cover` : 'var(--surface-alt)',
+                  border: '2px dashed var(--border-light)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--text-muted)',
+                  transition: 'all 0.2s ease'
+                }}>
+                  {!avatar && <Camera size={32} />}
+                </div>
+                <div style={{ position: 'absolute', bottom: '0', right: '0', background: 'var(--teal)', color: 'white', padding: '8px', borderRadius: '50%', boxShadow: '0 2px 8px rgba(24,184,154,0.4)' }}>
+                  <Camera size={16} />
+                </div>
+                <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
+              </label>
+            </div>
+
             <div style={{ marginBottom: '24px' }}>
               <label className="input-label">Target Role</label>
               <input type="text" name="targetRole" className="input-field" placeholder="e.g. Product Manager, ML Engineer" required onChange={handleChange} />
