@@ -4,6 +4,29 @@ import { Sparkles, CheckCircle, Globe, Play, ArrowRight, Star } from 'lucide-rea
 const Landing = ({ navigate }) => {
   return (
     <div className="landing-page">
+      {/* Navbar */}
+      <nav style={{ 
+        height: '80px', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'space-between', 
+        padding: '0 48px',
+        background: 'rgba(255, 255, 255, 0.8)',
+        backdropFilter: 'blur(10px)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
+        borderBottom: '1px solid var(--border-light)'
+      }}>
+        <div style={{ fontSize: '20px', fontWeight: 600, color: 'var(--navy)', cursor: 'pointer' }} onClick={() => navigate('landing')}>Interview Forge</div>
+        <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+          <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-secondary)', cursor: 'pointer' }}>Features</span>
+          <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-secondary)', cursor: 'pointer' }}>Pricing</span>
+          <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-secondary)', cursor: 'pointer' }} onClick={() => navigate('signin')}>Sign In</span>
+          <button className="btn-primary" onClick={() => navigate('signup')} style={{ padding: '8px 20px' }}>Get Started</button>
+        </div>
+      </nav>
+
       {/* Section 1: Hero */}
       <section className="hero" style={{ 
         minHeight: '92vh', 
@@ -179,10 +202,10 @@ const Landing = ({ navigate }) => {
             <div>
               <div style={{ fontWeight: 600, fontSize: '14px', color: 'var(--navy)', marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Product</div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px', color: 'var(--text-secondary)' }}>
-                <li style={{ cursor: 'pointer' }}>Question Bank</li>
-                <li style={{ cursor: 'pointer' }}>Mock Interviews</li>
-                <li style={{ cursor: 'pointer' }}>AI Answer Coach</li>
-                <li style={{ cursor: 'pointer' }}>Pricing</li>
+                <li style={{ cursor: 'pointer' }} onClick={() => navigate('landing')}>Question Bank</li>
+                <li style={{ cursor: 'pointer' }} onClick={() => navigate('landing')}>Mock Interviews</li>
+                <li style={{ cursor: 'pointer' }} onClick={() => navigate('landing')}>AI Answer Coach</li>
+                <li style={{ cursor: 'pointer' }} onClick={() => navigate('landing')}>Pricing</li>
               </ul>
             </div>
 

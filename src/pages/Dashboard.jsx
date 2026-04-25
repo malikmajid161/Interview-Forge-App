@@ -26,19 +26,22 @@ const Dashboard = ({ navigate, session }) => {
         
         <nav style={{ flex: 1, padding: '0 16px' }}>
           {navItems.map(item => (
-            <div key={item.name} style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '12px', 
-              padding: '12px 16px', 
-              marginBottom: '4px',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              background: item.active ? 'rgba(255,255,255,0.05)' : 'transparent',
-              borderLeft: item.active ? '3px solid var(--teal)' : '3px solid transparent',
-              color: item.active ? 'white' : 'rgba(255,255,255,0.6)',
-              transition: 'all 0.2s ease'
-            }}>
+            <div key={item.name} 
+              onClick={() => navigate(item.name.toLowerCase().replace(' ', '-'))}
+              style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '12px', 
+                padding: '12px 16px', 
+                marginBottom: '4px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                background: item.active ? 'rgba(255,255,255,0.05)' : 'transparent',
+                borderLeft: item.active ? '3px solid var(--teal)' : '3px solid transparent',
+                color: item.active ? 'white' : 'rgba(255,255,255,0.6)',
+                transition: 'all 0.2s ease'
+              }}
+            >
               {item.icon}
               <span style={{ fontSize: '14px', fontWeight: item.active ? 600 : 400 }}>{item.name}</span>
             </div>

@@ -93,11 +93,19 @@ const SignIn = ({ navigate }) => {
       </div>
 
       {/* Right Panel */}
-      <div className="right-panel" style={{ flex: '0 0 50%', background: 'white', padding: '64px', display: 'flex', alignItems: 'center' }}>
-        <div style={{ maxWidth: '400px', margin: '0 auto', width: '100%' }}>
-          <h2 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '8px' }}>Sign In</h2>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '40px' }}>
-            New here? <span style={{ color: 'var(--teal)', cursor: 'pointer' }} onClick={() => navigate('signup')}>Create a free account.</span>
+      <div className="right-panel" style={{ 
+        flex: '0 0 50%', 
+        background: 'white', 
+        padding: '64px', 
+        overflowY: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}>
+        <div style={{ maxWidth: '400px', margin: '0 auto', width: '100%', padding: '40px 0' }}>
+          <h2 style={{ fontSize: '32px', fontWeight: 600, marginBottom: '8px', color: 'var(--navy)' }}>Sign In</h2>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '40px', fontSize: '15px' }}>
+            New here? <span style={{ color: 'var(--teal)', fontWeight: 600, cursor: 'pointer' }} onClick={() => navigate('signup')}>Create a free account.</span>
           </p>
 
           {error && <div style={{ background: '#fef2f2', border: '1.5px solid #ef4444', color: '#ef4444', padding: '12px', borderRadius: '10px', marginBottom: '24px', fontSize: '14px' }}>{error}</div>}
