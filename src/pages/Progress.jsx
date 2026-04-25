@@ -48,9 +48,26 @@ const Progress = ({ session }) => {
 
   return (
     <div style={{ padding: '40px', maxWidth: '1100px', margin: '0 auto' }}>
-      <header style={{ marginBottom: '48px' }}>
-        <h1 className="instrument-serif italic" style={{ fontSize: '48px', marginBottom: '12px' }}>Your Progress</h1>
-        <p style={{ color: 'var(--text-secondary)' }}>Track your interview preparation journey over time.</p>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '48px' }}>
+        <div>
+          <h1 className="instrument-serif italic" style={{ fontSize: '48px', marginBottom: '12px' }}>Your Progress</h1>
+          <p style={{ color: 'var(--text-secondary)' }}>Track your interview preparation journey over time.</p>
+        </div>
+        <div style={{ 
+          width: '56px', 
+          height: '56px', 
+          borderRadius: '50%', 
+          background: 'linear-gradient(135deg, var(--teal), var(--accent-purple))', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          color: 'white', 
+          fontWeight: 700, 
+          fontSize: '18px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+        }}>
+          {(session?.user?.email?.[0] || 'U').toUpperCase()}
+        </div>
       </header>
 
       {/* Stat cards */}

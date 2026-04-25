@@ -30,8 +30,28 @@ const Landing = ({ navigate, session }) => {
         <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
           <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-secondary)', cursor: 'pointer' }}>Features</span>
           <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-secondary)', cursor: 'pointer' }}>Pricing</span>
-          <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-secondary)', cursor: 'pointer' }} onClick={() => navigate('signin')}>Sign In</span>
-          <button className="btn-primary" onClick={handleGetStarted} style={{ padding: '8px 20px' }}>Get Started</button>
+          {!session ? (
+            <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-secondary)', cursor: 'pointer' }} onClick={() => navigate('signin')}>Sign In</span>
+          ) : (
+            <div onClick={() => navigate('dashboard')} style={{ 
+              width: '40px', 
+              height: '40px', 
+              borderRadius: '50%', 
+              background: 'linear-gradient(135deg, var(--teal), var(--accent-purple))', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              color: 'white', 
+              fontWeight: 700, 
+              cursor: 'pointer',
+              fontSize: '14px'
+            }}>
+              {(session.user.email?.[0] || 'U').toUpperCase()}
+            </div>
+          )}
+          <button className="btn-primary" onClick={handleGetStarted} style={{ padding: '8px 20px' }}>
+            {session ? 'Dashboard' : 'Get Started'}
+          </button>
         </div>
       </nav>
 

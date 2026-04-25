@@ -85,12 +85,29 @@ const Dashboard = ({ navigate, session }) => {
           </h1>
           <p style={{ color: 'var(--text-secondary)' }}>Ready to crush your next interview?</p>
         </div>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <div style={{ position: 'relative' }}>
             <Search size={18} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
             <input type="text" placeholder="Search roles..." style={{ padding: '12px 16px 12px 48px', borderRadius: '12px', border: '1.5px solid var(--border-light)', width: '240px' }} />
           </div>
           <button className="btn-primary" onClick={() => navigate('question-bank')} style={{ gap: '8px' }}><Plus size={18} /> Generate</button>
+          
+          <div onClick={() => navigate('settings')} style={{ 
+            width: '48px', 
+            height: '48px', 
+            borderRadius: '50%', 
+            background: 'linear-gradient(135deg, var(--teal), var(--accent-purple))', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            color: 'white', 
+            fontWeight: 700, 
+            cursor: 'pointer',
+            boxShadow: '0 4px 12px rgba(24, 184, 154, 0.2)',
+            fontSize: '16px'
+          }}>
+            {(userName?.[0] || 'U').toUpperCase()}
+          </div>
         </div>
       </header>
 
