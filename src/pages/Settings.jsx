@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { User, Bell, Shield, LogOut, Save, Loader2, CheckCircle2 } from 'lucide-react'
+import { User, Bell, Shield, LogOut, Save, Loader2, CheckCircle2, Camera } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 const Settings = ({ navigate, session }) => {
@@ -11,7 +11,8 @@ const Settings = ({ navigate, session }) => {
     last_name: '',
     target_role: '',
     experience_level: 'Mid',
-    industry: ''
+    industry: '',
+    avatar_url: null
   })
 
   useEffect(() => {
@@ -36,6 +37,21 @@ const Settings = ({ navigate, session }) => {
     setLoading(false)
     setSaved(true)
     setTimeout(() => setSaved(false), 3000)
+  }
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        alert("Please choose an image smaller than 2MB")
+        return
+      }
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setProfile(p => ({ ...p, avatar_url: reader.result }))
+      }
+      reader.readAsDataURL(file)
+    }
   }
 
   const handleSignOut = async () => {
@@ -88,9 +104,19 @@ const Settings = ({ navigate, session }) => {
 
               {/* Avatar */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '32px', padding: '20px', background: 'var(--warm-white)', borderRadius: '16px' }}>
-                <div style={{ width: '72px', height: '72px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--teal), var(--accent-purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '28px', fontWeight: 700 }}>
-                  {(profile.first_name?.[0] || session?.user?.email?.[0] || '?').toUpperCase()}
-                </div>
+                <label style={{ cursor: 'pointer', position: 'relative' }}>
+                  <div style={{ 
+                    width: '72px', height: '72px', borderRadius: '50%', 
+                    background: profile.avatar_url ? `url(${profile.avatar_url}) center/cover` : 'linear-gradient(135deg, var(--teal), var(--accent-purple))', 
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '28px', fontWeight: 700 
+                  }}>
+                    {!profile.avatar_url && (profile.first_name?.[0] || session?.user?.email?.[0] || '?').toUpperCase()}
+                  </div>
+                  <div style={{ position: 'absolute', bottom: '-4px', right: '-4px', background: 'white', color: 'var(--teal)', padding: '6px', borderRadius: '50%', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+                    <Camera size={14} />
+                  </div>
+                  <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
+                </label>
                 <div>
                   <div style={{ fontWeight: 600, fontSize: '18px' }}>{profile.first_name || session?.user?.email?.split('@')[0]}</div>
                   <div style={{ color: 'var(--text-muted)', fontSize: '14px' }}>{session?.user?.email}</div>

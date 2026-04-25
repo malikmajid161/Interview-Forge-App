@@ -56,9 +56,22 @@ const MockInterview = ({ navigate }) => {
 
   const startSession = () => {
     setSessionActive(true)
+    const initialMessage = "Hello! I am your AI Interviewer. I'll be conducting your mock interview today. To start things off, could you please tell me a little bit about yourself and your background?"
     setMessages([
-      { role: 'ai', content: "Hello! I am your AI Interviewer. I'll be conducting your mock interview today. To start things off, could you please tell me a little bit about yourself and your background?" }
+      { role: 'ai', content: initialMessage }
     ])
+    
+    setTimeout(() => {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel()
+        const utterance = new SpeechSynthesisUtterance(initialMessage)
+        utterance.rate = 1.05
+        const voices = window.speechSynthesis.getVoices()
+        const preferredVoice = voices.find(v => v.name.includes('Female') || v.name.includes('Google US English') || v.name.includes('Samantha'))
+        if (preferredVoice) utterance.voice = preferredVoice
+        window.speechSynthesis.speak(utterance)
+      }
+    }, 500)
   }
 
   const toggleListen = (e) => {
@@ -101,6 +114,21 @@ Instructions:
 
       const response = await generateInterviewContent(prompt)
       setMessages(prev => [...prev, { role: 'ai', content: response }])
+      
+      // Text-to-Speech (TTS) for the AI's response
+      if ('speechSynthesis' in window) {
+        // Cancel any ongoing speech
+        window.speechSynthesis.cancel()
+        const utterance = new SpeechSynthesisUtterance(response)
+        utterance.rate = 1.05
+        
+        // Try to select a natural/female voice if available
+        const voices = window.speechSynthesis.getVoices()
+        const preferredVoice = voices.find(v => v.name.includes('Female') || v.name.includes('Google US English') || v.name.includes('Samantha'))
+        if (preferredVoice) utterance.voice = preferredVoice
+        
+        window.speechSynthesis.speak(utterance)
+      }
     } catch (err) {
       alert("Connection to AI lost. Please try again.")
     } finally {
