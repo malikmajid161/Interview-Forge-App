@@ -1,21 +1,21 @@
 {
   "models": [
     {
-      "id": "gemini-3.1-flash",
-      "name": "Gemini 3.1 Flash",
-      "description": "Latest stable high-performance model (April 2026). Optimized for speed and complex reasoning.",
+      "id": "llama3-70b-8192",
+      "name": "Groq Llama 3 (70B)",
+      "description": "Ultra-fast inference using Groq LPU technology. Currently the primary model.",
       "default": true
     },
     {
-      "id": "gemini-3.1-flash-lite",
-      "name": "Gemini 3.1 Flash Lite",
-      "description": "Optimized for extreme low latency.",
+      "id": "llama3-8b-8192",
+      "name": "Groq Llama 3 (8B)",
+      "description": "Blazing fast for simple tasks.",
       "default": false
     },
     {
-      "id": "gemini-3-flash",
-      "name": "Gemini 3 Flash",
-      "description": "Standard frontier model.",
+      "id": "mixtral-8x7b-32768",
+      "name": "Groq Mixtral",
+      "description": "Excellent for technical reasoning.",
       "default": false
     }
   ]
