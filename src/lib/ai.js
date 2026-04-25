@@ -44,6 +44,38 @@ export const generateInterviewContent = async (prompt) => {
   }
 };
 
+// Transcribe Audio using Groq Whisper
+export const transcribeAudio = async (audioBlob) => {
+  if (!GROQ_API_KEY) {
+    throw new Error("Groq API key not found.");
+  }
+
+  const formData = new FormData();
+  formData.append('file', audioBlob, 'audio.webm');
+  formData.append('model', 'whisper-large-v3-turbo');
+
+  try {
+    const response = await fetch("https://api.groq.com/openai/v1/audio/transcriptions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${GROQ_API_KEY}`
+      },
+      body: formData
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(`[GROQ] Audio API Error: ${error.error?.message || response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.text;
+  } catch (error) {
+    console.error("Audio Transcription Error:", error);
+    throw error;
+  }
+};
+
 // Parse JSON safely from AI response (handles markdown code fences)
 export const parseJsonFromAI = (text) => {
   // Remove possible markdown code blocks
