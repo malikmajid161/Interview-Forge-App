@@ -47,6 +47,7 @@ function App() {
         // Stay on current view if it's already a dashboard view
         if (!['dashboard', 'question-bank', 'mock-interview', 'mcq-quiz', 'study-plan', 'progress', 'settings', 'job-dna', 'panel', 'negotiation', 'patterns'].includes(currentView)) {
           setCurrentView('dashboard')
+        }
       } else {
         // Only redirect to landing if not on a demo-able page
         if (!['dashboard', 'interview-lab', 'resume-analyzer', 'question-bank'].includes(currentView)) {
