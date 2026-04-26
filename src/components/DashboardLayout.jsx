@@ -54,10 +54,23 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
         {/* User Card in Sidebar */}
         <div style={{ padding: '0 16px 24px' }}>
           <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '16px', padding: '16px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'linear-gradient(135deg, var(--teal), #0891b2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '14px' }}>{initials}</div>
+            <div style={{ 
+              width: '36px', 
+              height: '36px', 
+              borderRadius: '10px', 
+              background: localStorage.getItem('user_avatar') ? `url(${localStorage.getItem('user_avatar')}) center/cover` : 'linear-gradient(135deg, var(--teal), #0891b2)', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              fontWeight: 700, 
+              fontSize: '14px',
+              border: '1px solid rgba(255,255,255,0.1)'
+            }}>
+              {!localStorage.getItem('user_avatar') && initials}
+            </div>
             <div style={{ overflow: 'hidden' }}>
               <div style={{ fontSize: '13px', fontWeight: 600, color: 'white', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{username}</div>
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)' }}>Free Plan</div>
+              <div style={{ fontSize: '11px', color: 'var(--teal)', fontWeight: 600, cursor: 'pointer' }} onClick={() => navigate('checkout')}>Upgrade to Pro</div>
             </div>
           </div>
         </div>
@@ -152,10 +165,20 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <div style={{ textAlign: 'right' }}>
                 <div style={{ fontSize: '13px', fontWeight: 600 }}>{username}</div>
-                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Pro Member</div>
+                <div style={{ fontSize: '11px', color: 'var(--teal)', fontWeight: 700, cursor: 'pointer' }} onClick={() => navigate('checkout')}>Upgrade Plan</div>
               </div>
-              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'var(--surface-alt)', border: '1px solid var(--border-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
-                <User size={20} />
+              <div style={{ 
+                width: '36px', 
+                height: '36px', 
+                borderRadius: '50%', 
+                background: localStorage.getItem('user_avatar') ? `url(${localStorage.getItem('user_avatar')}) center/cover` : 'var(--surface-alt)', 
+                border: '1.5px solid var(--border-light)', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                color: 'var(--text-secondary)' 
+              }}>
+                {!localStorage.getItem('user_avatar') && <User size={20} />}
               </div>
             </div>
           </div>

@@ -119,8 +119,22 @@ const Profile = ({ navigate }) => {
                 }}>
                   {!avatar && <Camera size={32} />}
                 </div>
-                <div style={{ position: 'absolute', bottom: '0', right: '0', background: 'var(--teal)', color: 'white', padding: '8px', borderRadius: '50%', boxShadow: '0 2px 8px rgba(24,184,154,0.4)' }}>
-                  <Camera size={16} />
+                <div style={{ 
+                  position: 'absolute', 
+                  bottom: '2px', 
+                  right: '2px', 
+                  background: 'var(--teal)', 
+                  color: 'white', 
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%', 
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 2px 8px rgba(24,184,154,0.4)',
+                  border: '3px solid white'
+                }}>
+                  <Camera size={14} />
                 </div>
                 <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
               </label>
