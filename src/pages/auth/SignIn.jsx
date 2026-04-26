@@ -1,4 +1,6 @@
+import React, { useState } from 'react'
 import { CheckCircle, Eye, EyeOff } from 'lucide-react'
+import { supabase } from '../../lib/supabase'
 import FloatingBackground from '../../components/FloatingBackground'
 
 const SignIn = ({ navigate }) => {

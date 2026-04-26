@@ -185,7 +185,7 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
           </div>
         </header>
 
-        {/* View Content */}
+        {/* Page Content */}
         <div style={{ flex: 1, position: 'relative' }}>
           {children}
         </div>
