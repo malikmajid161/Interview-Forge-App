@@ -1,4 +1,4 @@
-import { LayoutDashboard, BookOpen, CheckSquare, MessageSquare, Calendar, BarChart3, Settings, LogOut, Target, Users, DollarSign, Activity, User, Bell } from 'lucide-react'
+import { LayoutDashboard, BookOpen, CheckSquare, MessageSquare, Calendar, BarChart3, Settings, LogOut, Target, Users, DollarSign, Activity, User, Bell, Zap, FileText } from 'lucide-react'
 import logo from '../pages/logo.png'
 import { supabase } from '../lib/supabase'
 
@@ -14,6 +14,8 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
 
   const navItems = [
     { name: 'Dashboard',      id: 'dashboard',     icon: <LayoutDashboard size={20} /> },
+    { name: 'Interview Lab',  id: 'interview-lab',  icon: <Zap size={20} /> },
+    { name: 'Resume Analyzer',id: 'resume-analyzer',icon: <FileText size={20} /> },
     { name: 'Question Bank',  id: 'question-bank', icon: <BookOpen size={20} /> },
     { name: 'MCQ Quiz',       id: 'mcq-quiz',      icon: <CheckSquare size={20} /> },
     { name: 'Mock Interview', id: 'mock-interview',icon: <MessageSquare size={20} /> },
