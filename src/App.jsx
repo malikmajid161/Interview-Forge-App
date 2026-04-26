@@ -47,9 +47,11 @@ function App() {
         // Stay on current view if it's already a dashboard view
         if (!['dashboard', 'question-bank', 'mock-interview', 'mcq-quiz', 'study-plan', 'progress', 'settings', 'job-dna', 'panel', 'negotiation', 'patterns'].includes(currentView)) {
           setCurrentView('dashboard')
-        }
       } else {
-        setCurrentView('landing')
+        // Only redirect to landing if not on a demo-able page
+        if (!['dashboard', 'interview-lab', 'resume-analyzer', 'question-bank'].includes(currentView)) {
+          setCurrentView('landing')
+        }
       }
     })
 
@@ -72,7 +74,7 @@ function App() {
 
   const renderView = () => {
     // Auth and Landing views (Full Page)
-    if (['landing', 'signup', 'signin', 'verify', 'profile'].includes(currentView) || !session) {
+    if ((['landing', 'signup', 'signin', 'verify', 'profile'].includes(currentView) && currentView !== 'dashboard') || (!session && !['dashboard', 'question-bank', 'mock-interview', 'mcq-quiz', 'study-plan', 'progress', 'settings', 'job-dna', 'panel', 'negotiation', 'patterns', 'interview-lab', 'resume-analyzer'].includes(currentView))) {
       switch (currentView) {
         case 'signup': return <SignUp navigate={navigate} />
         case 'signin': return <SignIn navigate={navigate} />
