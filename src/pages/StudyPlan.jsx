@@ -54,6 +54,20 @@ Return ONLY a valid JSON object, no markdown formatting. Use this exact schema:
       }
       
       setPlan(parsed)
+
+      // Save session to localStorage so Progress page tracks it
+      const attempt = {
+        role,
+        session_type: 'study_plan',
+        questions_practiced: (parsed.weeks?.length || weeks) * 5,
+        score: null,
+        total: null,
+        created_at: new Date().toISOString()
+      }
+      const saved = JSON.parse(localStorage.getItem('local_sessions') || '[]')
+      saved.push(attempt)
+      localStorage.setItem('local_sessions', JSON.stringify(saved))
+
     } catch (err) {
       alert(`Failed to generate plan: ${err.message}`)
     } finally {

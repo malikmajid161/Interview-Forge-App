@@ -13,6 +13,12 @@ import StudyPlan from './pages/StudyPlan'
 import Progress from './pages/Progress'
 import Settings from './pages/Settings'
 import DashboardLayout from './components/DashboardLayout'
+import JobDNA from './pages/JobDNA'
+import NegotiationDojo from './pages/NegotiationDojo'
+import PanelInterview from './pages/PanelInterview'
+import PatternAnalysis from './pages/PatternAnalysis'
+import InterviewLab from './pages/InterviewLab'
+import ResumeAnalyzer from './pages/ResumeAnalyzer'
 
 function App() {
   const [currentView, setCurrentView] = useState(() => {
@@ -39,7 +45,7 @@ function App() {
       setSession(session)
       if (session) {
         // Stay on current view if it's already a dashboard view
-        if (!['dashboard', 'question-bank', 'mock-interview', 'mcq-quiz', 'study-plan', 'progress', 'settings'].includes(currentView)) {
+        if (!['dashboard', 'question-bank', 'mock-interview', 'mcq-quiz', 'study-plan', 'progress', 'settings', 'job-dna', 'panel', 'negotiation', 'patterns'].includes(currentView)) {
           setCurrentView('dashboard')
         }
       } else {
@@ -81,12 +87,18 @@ function App() {
       <DashboardLayout navigate={navigate} activeView={currentView} session={session}>
         {(() => {
           switch (currentView) {
-            case 'question-bank': return <QuestionBank navigate={navigate} />
-            case 'mock-interview': return <MockInterview navigate={navigate} />
-            case 'mcq-quiz': return <McqQuiz />
-            case 'study-plan': return <StudyPlan session={session} />
-            case 'progress': return <Progress session={session} />
-            case 'settings': return <Settings navigate={navigate} session={session} />
+            case 'question-bank':  return <QuestionBank navigate={navigate} />
+            case 'mock-interview':  return <MockInterview navigate={navigate} />
+            case 'mcq-quiz':        return <McqQuiz />
+            case 'study-plan':      return <StudyPlan session={session} />
+            case 'progress':        return <Progress session={session} />
+            case 'settings':        return <Settings navigate={navigate} session={session} />
+            case 'job-dna':         return <JobDNA navigate={navigate} />
+            case 'panel':           return <PanelInterview navigate={navigate} />
+            case 'negotiation':     return <NegotiationDojo navigate={navigate} />
+            case 'patterns':        return <PatternAnalysis session={session} />
+            case 'interview-lab':   return <InterviewLab navigate={navigate} session={session} />
+            case 'resume-analyzer': return <ResumeAnalyzer navigate={navigate} />
             case 'dashboard':
             default: return <Dashboard navigate={navigate} session={session} />
           }

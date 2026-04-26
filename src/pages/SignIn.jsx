@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { supabase } from '../lib/supabase'
 import { CheckCircle, Eye, EyeOff } from 'lucide-react'
+import FloatingBackground from '../components/FloatingBackground'
 
 const SignIn = ({ navigate }) => {
   const [formData, setFormData] = useState({
@@ -37,17 +36,22 @@ const SignIn = ({ navigate }) => {
   }
 
   return (
-    <div className="signin-page" style={{ height: '100vh', display: 'flex', overflow: 'hidden' }}>
+    <div className="signin-page" style={{ minHeight: '100vh', display: 'flex', position: 'relative', background: 'var(--warm-white)' }}>
+      <FloatingBackground />
       {/* Left Panel */}
       <div className="left-panel" style={{ 
-        width: '50%',
-        background: 'linear-gradient(145deg, #0a1423 0%, #1a2d47 100%)', 
+        width: '45%',
+        background: 'rgba(10, 15, 29, 0.95)', 
+        backdropFilter: 'blur(10px)',
         color: 'white', 
-        padding: '64px',
+        padding: '80px 60px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        position: 'relative',
+        position: 'sticky',
+        top: 0,
+        height: '100vh',
+        zIndex: 1,
         overflow: 'hidden',
         borderRight: '1px solid rgba(255,255,255,0.05)'
       }}>
@@ -97,16 +101,18 @@ const SignIn = ({ navigate }) => {
 
       {/* Right Panel */}
       <div className="right-panel" style={{ 
-        width: '50%', 
-        background: 'white', 
-        padding: '64px', 
-        overflowY: 'auto',
+        width: '55%', 
+        background: 'rgba(255, 255, 255, 0.75)', 
+        backdropFilter: 'blur(20px)',
+        padding: '120px 5vw 80px', 
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        alignItems: 'center',
+        overflowY: 'auto',
+        zIndex: 1
       }}>
-        <div style={{ maxWidth: '400px', margin: '0 auto', width: '100%', padding: '40px 0' }}>
-          <h2 style={{ fontSize: '32px', fontWeight: 600, marginBottom: '8px', color: 'var(--navy)' }}>Sign In</h2>
+        <div style={{ maxWidth: '400px', width: '100%' }}>
+          <h2 style={{ fontSize: '42px', fontWeight: 800, marginBottom: '12px', color: 'var(--navy)', letterSpacing: '-0.02em' }}>Sign In</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '40px', fontSize: '15px' }}>
             New here? <span style={{ color: 'var(--teal)', fontWeight: 600, cursor: 'pointer' }} onClick={() => navigate('signup')}>Create a free account.</span>
           </p>

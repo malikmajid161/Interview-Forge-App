@@ -27,15 +27,28 @@ const QuestionBank = () => {
       const parsed = await generateQuestions(role, level)
       setQuestions(parsed)
 
-      // Save session to Supabase
+      // Save to localStorage immediately (guaranteed)
+      const attempt = {
+        role,
+        session_type: 'question_bank',
+        questions_practiced: parsed.length,
+        score: null,
+        total: null,
+        created_at: new Date().toISOString()
+      }
+      const saved = JSON.parse(localStorage.getItem('local_sessions') || '[]')
+      saved.push(attempt)
+      localStorage.setItem('local_sessions', JSON.stringify(saved))
+
+      // Also try Supabase
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
         await supabase.from('sessions').insert({
           user_id: user.id,
-          role: role,
+          role,
           session_type: 'question_bank',
           questions_practiced: parsed.length
-        })
+        }).catch(err => console.error('QB Supabase save failed:', err))
       }
     } catch (err) {
       console.error(err)

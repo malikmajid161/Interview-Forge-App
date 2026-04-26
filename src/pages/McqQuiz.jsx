@@ -46,24 +46,44 @@ const McqQuiz = () => {
       setSelectedOption(null)
       setAnswered(false)
     } else {
-      // Save results to Supabase
+      // Save results to Supabase (and localStorage as fallback)
+      const attempt = {
+        role,
+        session_type: 'mcq',
+        score: score,
+        total: questions.length,
+        questions_practiced: questions.length,
+        created_at: new Date().toISOString()
+      }
+
+      // Always save to localStorage first (guaranteed)
+      const savedSessions = JSON.parse(localStorage.getItem('local_sessions') || '[]')
+      savedSessions.push(attempt)
+      localStorage.setItem('local_sessions', JSON.stringify(savedSessions))
+
+      // Also try to save to Supabase
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
-        await supabase.from('mcq_attempts').insert({
-          user_id: user.id,
-          role,
-          total_questions: questions.length,
-          correct_answers: score,
-          score_percentage: Math.round((score / questions.length) * 100)
-        })
-        
-        await supabase.from('sessions').insert({
-          user_id: user.id,
-          role,
-          session_type: 'mcq',
-          score: score,
-          total: questions.length
-        })
+        try {
+          await supabase.from('mcq_attempts').insert({
+            user_id: user.id,
+            role,
+            total_questions: questions.length,
+            correct_answers: score,
+            score_percentage: Math.round((score / questions.length) * 100)
+          })
+          
+          await supabase.from('sessions').insert({
+            user_id: user.id,
+            role,
+            session_type: 'mcq',
+            score: score,
+            total: questions.length,
+            questions_practiced: questions.length
+          })
+        } catch (err) {
+          console.error("DB Save failed, local storage fallback active:", err)
+        }
       }
       setScreen('results')
     }

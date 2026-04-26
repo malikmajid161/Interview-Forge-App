@@ -25,15 +25,30 @@ const Settings = ({ navigate, session }) => {
       .select('*')
       .eq('id', session.user.id)
       .single()
-    if (data) setProfile(data)
+    
+    const localAvatar = localStorage.getItem('user_avatar')
+    
+    if (data) {
+      setProfile({ ...data, avatar_url: localAvatar || data.avatar_url || null })
+    } else {
+      setProfile(p => ({ ...p, avatar_url: localAvatar || null }))
+    }
   }
 
   const saveProfile = async () => {
     setLoading(true)
+    
+    if (profile.avatar_url) {
+      localStorage.setItem('user_avatar', profile.avatar_url)
+    }
+    
+    const { avatar_url, ...dbProfile } = profile
+    
     await supabase.from('profiles').upsert({
       id: session.user.id,
-      ...profile
+      ...dbProfile
     })
+    
     setLoading(false)
     setSaved(true)
     setTimeout(() => setSaved(false), 3000)

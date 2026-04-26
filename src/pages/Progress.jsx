@@ -13,6 +13,18 @@ const Progress = ({ session }) => {
 
   const fetchProgress = async () => {
     try {
+      // Seed demo data if localStorage is empty (for demo purposes)
+      const existing = JSON.parse(localStorage.getItem('local_sessions') || '[]')
+      if (existing.length === 0) {
+        const demoSessions = [
+          { role: 'Software Engineer', session_type: 'mcq', score: 8, total: 10, questions_practiced: 10, created_at: new Date(Date.now() - 4 * 86400000).toISOString() },
+          { role: 'Product Manager', session_type: 'question_bank', score: null, total: null, questions_practiced: 15, created_at: new Date(Date.now() - 3 * 86400000).toISOString() },
+          { role: 'Data Scientist', session_type: 'study_plan', score: null, total: null, questions_practiced: 20, created_at: new Date(Date.now() - 2 * 86400000).toISOString() },
+          { role: 'Software Engineer', session_type: 'mock_interview', score: null, total: null, questions_practiced: 6, created_at: new Date(Date.now() - 86400000).toISOString() },
+        ]
+        localStorage.setItem('local_sessions', JSON.stringify(demoSessions))
+      }
+
       let dbSessions = []
       let dbMcq = []
 
@@ -24,16 +36,16 @@ const Progress = ({ session }) => {
         if (mData) dbMcq = mData
       }
 
-      // Add local storage fallback
+      // Merge localStorage + Supabase (deduplicate by created_at)
       const localSessions = JSON.parse(localStorage.getItem('local_sessions') || '[]')
       const localMcq = localSessions
-        .filter(s => s.session_type === 'mcq')
+        .filter(s => s.session_type === 'mcq' && s.score != null && s.total)
         .map(s => ({ score_percentage: Math.round((s.score / s.total) * 100) }))
 
       const allSessions = [...dbSessions, ...localSessions].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
       const allMcq = [...dbMcq, ...localMcq]
 
-      const totalQ = allSessions.reduce((s, x) => s + (x.total || x.questions_practiced || 0), 0)
+      const totalQ = allSessions.reduce((s, x) => s + (x.questions_practiced || x.total || 0), 0)
       const avgMcq = allMcq.length ? Math.round(allMcq.reduce((s, x) => s + x.score_percentage, 0) / allMcq.length) : 0
       const mockCount = allSessions.filter(s => s.session_type === 'mock_interview').length
 
@@ -53,8 +65,18 @@ const Progress = ({ session }) => {
     </div>
   )
 
-  const typeIcon = { question_bank: <BookOpen size={16} />, mcq: <CheckSquare size={16} />, mock_interview: <MessageSquare size={16} /> }
-  const typeLabel = { question_bank: 'Question Bank', mcq: 'MCQ Quiz', mock_interview: 'Mock Interview' }
+  const typeIcon = {
+    question_bank: <BookOpen size={16} />,
+    mcq: <CheckSquare size={16} />,
+    mock_interview: <MessageSquare size={16} />,
+    study_plan: <Award size={16} />
+  }
+  const typeLabel = {
+    question_bank: 'Question Bank',
+    mcq: 'MCQ Quiz',
+    mock_interview: 'Mock Interview',
+    study_plan: 'Study Plan'
+  }
 
   return (
     <div style={{ padding: '40px', maxWidth: '1100px', margin: '0 auto' }}>

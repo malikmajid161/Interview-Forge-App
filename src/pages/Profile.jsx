@@ -36,6 +36,9 @@ const Profile = ({ navigate }) => {
     setLoading(true)
 
     try {
+      if (avatar) {
+        localStorage.setItem('user_avatar', avatar)
+      }
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
         const { error } = await supabase.from('profiles').upsert({
@@ -43,8 +46,7 @@ const Profile = ({ navigate }) => {
           target_role: formData.targetRole,
           experience_level: formData.experienceLevel,
           industry: formData.industry,
-          interview_date: formData.interviewDate,
-          avatar_url: avatar // Saving Base64 image
+          interview_date: formData.interviewDate
         })
         if (error) throw error
       }
