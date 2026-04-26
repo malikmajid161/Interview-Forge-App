@@ -27,10 +27,13 @@ const Landing = ({ navigate, session }) => {
   }, [])
 
   const handleGetStarted = () => {
-    if (session) {
-      navigate('dashboard')
-    } else {
-      navigate('dashboard')
+    navigate('dashboard')
+  }
+
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
@@ -59,7 +62,15 @@ const Landing = ({ navigate, session }) => {
         <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
           <div style={{ display: 'flex', gap: '24px' }} className="nav-links">
             {['Features', 'Testimonials', 'Pricing'].map(link => (
-              <span key={link} style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)', cursor: 'pointer' }}>{link}</span>
+              <span 
+                key={link} 
+                onClick={() => scrollToSection(link.toLowerCase())}
+                style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)', cursor: 'pointer', transition: 'color 0.2s' }}
+                onMouseEnter={e => e.target.style.color = 'var(--teal)'}
+                onMouseLeave={e => e.target.style.color = 'var(--text-secondary)'}
+              >
+                {link}
+              </span>
             ))}
           </div>
           <div style={{ width: '1px', height: '24px', background: 'var(--border-light)' }}></div>
@@ -151,7 +162,7 @@ const Landing = ({ navigate, session }) => {
       </section>
 
       {/* Unique Features Section */}
-      <section style={{ padding: '100px 5vw', background: 'white' }}>
+      <section id="features" style={{ padding: '100px 5vw', background: 'white' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div ref={addToRefs} className="reveal" style={{ textAlign: 'center', marginBottom: '80px' }}>
             <div className="badge badge-purple" style={{ marginBottom: '16px' }}>THE FORGE ADVANTAGE</div>
@@ -215,6 +226,70 @@ const Landing = ({ navigate, session }) => {
                 <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{stat.label}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" style={{ padding: '100px 5vw', background: 'white', borderTop: '1px solid var(--border-light)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div ref={addToRefs} className="reveal" style={{ textAlign: 'center', marginBottom: '64px' }}>
+            <h2 style={{ fontSize: '42px', marginBottom: '16px' }}>Wall of <span style={{ color: 'var(--teal)' }}>Love</span></h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '18px' }}>From candidates who cracked FAANG and top-tier startups.</p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
+            {[
+              { name: 'Sarah J.', role: 'L5 @ Google', quote: 'The Salary Dojo was the differentiator. I negotiated a 20% higher sign-on bonus using the AI tactics.', avatar: 'SJ' },
+              { name: 'Michael R.', role: 'Senior Dev @ Meta', quote: 'Chaos Mode prepared me for the actual technical pressure. The AI doesn\'t hold back.', avatar: 'MR' },
+              { name: 'Anita K.', role: 'Lead PM @ Stripe', quote: 'The Answer Evolution tool helped me refine my STAR stories until they were flawless.', avatar: 'AK' }
+            ].map((t, i) => (
+              <div key={i} className="card" style={{ padding: '32px', position: 'relative' }}>
+                <div style={{ display: 'flex', gap: '4px', marginBottom: '16px', color: '#fbbf24' }}>
+                  {[1,2,3,4,5].map(s => <Star key={s} size={14} fill="currentColor" />)}
+                </div>
+                <p style={{ fontSize: '15px', color: 'var(--text-primary)', lineHeight: 1.6, marginBottom: '24px', fontStyle: 'italic' }}>"{t.quote}"</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--surface-alt)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '12px', color: 'var(--teal)' }}>{t.avatar}</div>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 700 }}>{t.name}</div>
+                    <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" style={{ padding: '100px 5vw', background: 'var(--surface-alt)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div ref={addToRefs} className="reveal" style={{ textAlign: 'center', marginBottom: '64px' }}>
+            <h2 style={{ fontSize: '42px', marginBottom: '16px' }}>Ready to <span style={{ color: 'var(--accent-purple)' }}>Level Up</span>?</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '18px' }}>Simple, transparent pricing for career-changing results.</p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '40px', maxWidth: '900px', margin: '0 auto' }}>
+            <div className="card" style={{ padding: '48px', borderTop: '4px solid var(--border-light)' }}>
+              <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>Basic</div>
+              <div style={{ fontSize: '48px', fontWeight: 800, marginBottom: '24px' }}>Free<span style={{ fontSize: '16px', color: 'var(--text-muted)', fontWeight: 400 }}>/forever</span></div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px' }}>
+                <li>✓ 5 AI Mock Interviews / mo</li>
+                <li>✓ Basic AI Feedback</li>
+                <li>✓ Community Support</li>
+              </ul>
+              <button className="btn-ghost" onClick={handleGetStarted} style={{ width: '100%' }}>Choose Basic</button>
+            </div>
+            <div className="card" style={{ padding: '48px', borderTop: '4px solid var(--teal)', boxShadow: '0 20px 40px rgba(6,182,212,0.1)' }}>
+              <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--teal)', marginBottom: '8px', textTransform: 'uppercase' }}>Pro</div>
+              <div style={{ fontSize: '48px', fontWeight: 800, marginBottom: '24px' }}>$29<span style={{ fontSize: '16px', color: 'var(--text-muted)', fontWeight: 400 }}>/mo</span></div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px' }}>
+                <li>✓ Unlimited Mock Interviews</li>
+                <li>✓ Advanced Biometric Analysis</li>
+                <li>✓ Chaos Mode & Salary Dojo</li>
+                <li>✓ Priority AI Support</li>
+              </ul>
+              <button className="btn-primary" onClick={handleGetStarted} style={{ width: '100%' }}>Choose Pro</button>
+            </div>
           </div>
         </div>
       </section>
