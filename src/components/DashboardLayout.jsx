@@ -143,8 +143,8 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
         {/* Header */}
         <header style={{ 
           height: '72px', 
-          background: 'rgba(255,255,255,0.8)', 
-          backdropFilter: 'blur(12px)', 
+          background: 'rgba(255,255,255,0.85)', 
+          backdropFilter: 'blur(16px)', 
           borderBottom: '1px solid var(--border-light)', 
           display: 'flex', 
           alignItems: 'center', 
@@ -152,34 +152,60 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
           padding: '0 40px',
           position: 'sticky',
           top: 0,
-          zIndex: 5
+          zIndex: 50
         }}>
-          <h2 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)', textTransform: 'capitalize' }}>
-            {activeView.replace('-', ' ')}
-          </h2>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <button style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', position: 'relative' }}>
-              <Bell size={20} />
-              <div style={{ position: 'absolute', top: '-2px', right: '-2px', width: '8px', height: '8px', background: '#ef4444', borderRadius: '50%', border: '2px solid white' }}></div>
-            </button>
-            <div style={{ width: '1px', height: '24px', background: 'var(--border-light)' }}></div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '13px', fontWeight: 600 }}>{username}</div>
-                <div style={{ fontSize: '11px', color: 'var(--teal)', fontWeight: 700, cursor: 'pointer' }} onClick={() => navigate('checkout')}>Upgrade Plan</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flex: 1 }}>
+            <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--navy)', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>
+              {activeView.replace('-', ' ')}
+            </h2>
+            <div style={{ position: 'relative', width: '100%', maxWidth: '400px' }}>
+              <Search size={18} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+              <input 
+                type="text" 
+                placeholder="Search tools, sessions, or questions..." 
+                style={{ 
+                  width: '100%', height: '44px', background: 'var(--surface-alt)', border: '1px solid var(--border-light)', 
+                  borderRadius: '12px', padding: '0 16px 0 48px', fontSize: '14px', outline: 'none', transition: 'all 0.2s'
+                }} 
+                onFocus={e => { e.target.style.borderColor = 'var(--teal)'; e.target.style.background = 'white'; e.target.style.boxShadow = '0 0 0 4px rgba(6, 182, 212, 0.1)' }}
+                onBlur={e => { e.target.style.borderColor = 'var(--border-light)'; e.target.style.background = 'var(--surface-alt)'; e.target.style.boxShadow = 'none' }}
+              />
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <button style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'white', border: '1px solid var(--border-light)', color: 'var(--text-secondary)', cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }} onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--teal)'} onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border-light)'}>
+                <Bell size={18} />
+                <div style={{ position: 'absolute', top: '8px', right: '8px', width: '8px', height: '8px', background: '#ef4444', borderRadius: '50%', border: '2px solid white' }}></div>
+              </button>
+              <button style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'white', border: '1px solid var(--border-light)', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }} onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--teal)'} onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border-light)'}>
+                <Settings size={18} />
+              </button>
+            </div>
+
+            <div style={{ width: '1px', height: '32px', background: 'var(--border-light)' }}></div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ textAlign: 'right', display: 'none', md: 'block' }}>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--navy)' }}>{username}</div>
+                <div style={{ fontSize: '11px', color: 'var(--success)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.02em' }}>Online</div>
               </div>
               <div style={{ 
-                width: '36px', 
-                height: '36px', 
-                borderRadius: '50%', 
-                background: localStorage.getItem('user_avatar') ? `url(${localStorage.getItem('user_avatar')}) center/cover` : 'var(--surface-alt)', 
-                border: '1.5px solid var(--border-light)', 
+                width: '40px', 
+                height: '40px', 
+                borderRadius: '12px', 
+                background: localStorage.getItem('user_avatar') ? `url(${localStorage.getItem('user_avatar')}) center/cover` : 'linear-gradient(135deg, var(--teal), #0891b2)', 
+                border: '2px solid white', 
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
-                color: 'var(--text-secondary)' 
+                color: 'white',
+                fontWeight: 700,
+                fontSize: '14px'
               }}>
-                {!localStorage.getItem('user_avatar') && <User size={20} />}
+                {!localStorage.getItem('user_avatar') && initials}
               </div>
             </div>
           </div>

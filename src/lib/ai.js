@@ -345,3 +345,22 @@ Example: ["STAR Structure", "Quantifying Impact"]`;
   const text = await generateInterviewContent(prompt);
   return parseJsonFromAI(text);
 };
+// ─── RESUME INTELLIGENCE ─────────────────────────────────────────────────────
+export const analyzeResume = async (resumeText) => {
+  const prompt = `You are an elite technical recruiter and resume strategist. Analyze this resume text for a high-tier tech role.
+Resume Content:
+"${resumeText.slice(0, 4000)}"
+
+Return ONLY valid JSON:
+{
+  "score": 85,
+  "matchRole": "Software Engineer / Frontend Lead",
+  "strengths": ["list 3 key strengths"],
+  "gaps": ["list 3 key missing skills or areas for improvement"],
+  "keywords": ["list 5 relevant technical keywords"],
+  "summary": "1-2 sentence executive summary of the candidate."
+}
+Be critical, precise, and model-based (like GPT-4/Claude 3.5).`;
+  const text = await generateInterviewContent(prompt);
+  return parseJsonFromAI(text);
+};

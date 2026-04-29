@@ -1,25 +1,24 @@
 import React, { useState } from 'react'
 import { FileText, Search, Shield, Zap, CheckCircle, AlertCircle, ArrowRight, Loader2, BarChart3, Target, Briefcase } from 'lucide-react'
+import { analyzeResume } from '../../lib/ai'
 
 const ResumeAnalyzer = ({ navigate }) => {
   const [resumeText, setResumeText] = useState('')
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [result, setResult] = useState(null)
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (!resumeText.trim()) return
     setIsAnalyzing(true)
-    // Simulate deep AI analysis
-    setTimeout(() => {
-      setResult({
-        score: 84,
-        matchRole: "Senior Frontend Engineer",
-        strengths: ["Strong React Ecosystem knowledge", "Solid performance optimization skills", "Clear architectural thinking"],
-        gaps: ["Needs more System Design project examples", "Limited mention of testing frameworks (Jest/Cypress)", "Missing cloud deployment experience"],
-        keywords: ["React", "TypeScript", "Vite", "Performance", "UI/UX"]
-      })
+    try {
+      const data = await analyzeResume(resumeText)
+      setResult(data)
+    } catch (error) {
+      console.error("Resume Analysis Error:", error)
+      alert("Failed to analyze resume. Please check your connection and API key.")
+    } finally {
       setIsAnalyzing(false)
-    }, 2500)
+    }
   }
 
   return (
